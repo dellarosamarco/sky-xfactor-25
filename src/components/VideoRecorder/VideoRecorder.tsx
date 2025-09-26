@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import { VideoRecorderProps } from "./VideoRecorder.types";
 
-const VideoRecorder: React.FC = () => {
+const VideoRecorder: React.FC<VideoRecorderProps> = ({ width, height }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [recording, setRecording] = useState(false);
@@ -62,7 +63,7 @@ const VideoRecorder: React.FC = () => {
 
   return (
     <div>
-      <video ref={videoRef} autoPlay playsInline style={{ width: "400px" }} />
+      <video ref={videoRef} autoPlay playsInline style={{ width: width + 'px', height: height + 'px' }} />
       <div>
         {!recording ? (
           <button onClick={startRecording}>Start Recording</button>

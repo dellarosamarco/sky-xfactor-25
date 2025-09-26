@@ -1,0 +1,16 @@
+.recorder {
+
+}
+
+.recorder-countdown {
+    background-color: black;
+    width: 880px;
+    height: 495px;
+
+    &__text {
+        color: white;
+        font-size: 100px;
+        text-align: center;
+        line-height: 495px;
+    }
+}

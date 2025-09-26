@@ -22,18 +22,18 @@ const Performances = () => {
             setPerformanceIndex(1);
         }
         else {
-            window.location.href = '/feedback';
+            window.location.href = '/recorder';
         }
     }
 
     if(isWatching) {
         return (
             <div className='page'>
-                <YoutubePlayer width={720} height={380} videoId={getVideoId()}></YoutubePlayer>
+                <YoutubePlayer width={880} height={495} videoId={getVideoId()}></YoutubePlayer>
 
                 <div className='performances-action'>
                     <button className='button' onClick={onCompleteVideo}>
-                        {performanceIndex === 0 ? 'Vai alla 2° esibizione' : 'Continua il gioco!'}
+                        {performanceIndex === 0 ? 'Vai alla 2° esibizione' : 'Dai il tuo feedback'}
                     </button>
                 </div>
             </div>
