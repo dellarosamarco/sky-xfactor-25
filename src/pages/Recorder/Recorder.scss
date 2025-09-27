@@ -1,5 +1,9 @@
 .recorder {
-
+    &__actions {
+        margin-top: 20px;
+        display: flex;
+        gap: 32px;
+    }
 }
 
 .recorder-countdown {
