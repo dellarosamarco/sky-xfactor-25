@@ -24,7 +24,7 @@ const Performances = () => {
             setPerformanceIndex(1);
         }
         else {
-            navigate('recorder');
+            navigate('/recorder');
         }
     }
 
@@ -49,7 +49,7 @@ const Performances = () => {
             </div>
 
             <div className="performances-description">
-                <p className='text--lg'>Alla fine ti chiederemo di<br></br>dare<span>il tuo feedback da giudice</span>.</p>
+                <p className='text--lg'>Alla fine ti chiederemo di<br></br>dare<span> il tuo feedback da giudice</span>.</p>
             </div>
 
             <div className='performances-action'>

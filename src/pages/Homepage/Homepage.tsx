@@ -6,7 +6,7 @@ const Homepage = () => {
     const navigate = useNavigate();
 
     const onContinue = () => {
-        navigate('performances');
+        navigate('/performances');
     }
 
     return (
