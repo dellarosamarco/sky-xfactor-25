@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import Logo from './../../assets/logo.png';
 import './Homepage.scss';
 
 const Homepage = () => {
+    const navigate = useNavigate();
+
     const onContinue = () => {
-        window.location.href = '/performances';
+        navigate('performances');
     }
 
     return (

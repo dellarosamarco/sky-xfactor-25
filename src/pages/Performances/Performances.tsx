@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import './Performances.scss';
 import YoutubePlayer from '../../components/YoutubePlayer/YoutubePlayer';
+import { useNavigate } from 'react-router-dom';
 
 const Performances = () => {
+    const navigate = useNavigate();
     const [isWatching, setIsWatching] = useState(false);
     const [performanceIndex, setPerformanceIndex] = useState(0);
 
@@ -22,7 +24,7 @@ const Performances = () => {
             setPerformanceIndex(1);
         }
         else {
-            window.location.href = '/recorder';
+            navigate('recorder');
         }
     }
 
