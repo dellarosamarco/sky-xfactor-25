@@ -6,6 +6,7 @@ const Homepage = lazy(() => import("../pages/Homepage/Homepage"));
 const Performances = lazy(() => import("../pages/Performances/Performances"));
 const Feedback = lazy(() => import("../pages/Feedback/Feedback"));
 const Recorder = lazy(() => import("../pages/Recorder/Recorder"));
+const ThanksGiving = lazy(() => import("../pages/ThanksGiving/ThanksGiving"));
 
 export const routes: RouteObject[] = [
   {
@@ -15,6 +16,7 @@ export const routes: RouteObject[] = [
       { path: "/performances", element: <Performances></Performances>},
       { path: "/feedback", element: <Feedback /> },
       { path: "/recorder", element: <Recorder /> },
+      { path: "/thanksgiving", element: <ThanksGiving /> },
       { path: "*", element: <Homepage /> },
     ],
   },

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import VideoRecorder from "../../components/VideoRecorder/VideoRecorder";
 import './Recorder.scss';
+import { useNavigate } from "react-router-dom";
 
 const Recorder = () => {
+    const navigate = useNavigate();
     const [countdown, setCountdown] = useState(10);
     const [recordedVideo, setRecordedVideo] = useState<Blob | undefined>();
     const [recording, setRecording] = useState(false);
@@ -17,6 +19,11 @@ const Recorder = () => {
         a.click();
         URL.revokeObjectURL(url);
     };
+
+    const onContinue = () => {
+        downloadRecording();
+        navigate('/thanksgiving');
+    }
 
     useEffect(() => {
         if(countdown > 0) {
@@ -40,7 +47,7 @@ const Recorder = () => {
 
                 <div className="recorder__actions">
                     <button className="button" onClick={() => setRecording(!recording)}>{recording ? 'Stop' : 'Start' } recording</button>
-                    { recordedVideo && <button className="button" onClick={() => downloadRecording()}>Invia il tuo feedback</button> }
+                    { recordedVideo && <button className="button" onClick={() => onContinue()}>Invia il tuo feedback</button> }
                 </div>
             </div>
         );

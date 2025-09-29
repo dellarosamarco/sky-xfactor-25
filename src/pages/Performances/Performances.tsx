@@ -45,11 +45,11 @@ const Performances = () => {
     return (
         <div className="page performances">
             <div className="performances-title">
-                <p className="text--lg">Stai per vedere <span>2 performance</span>.</p>
+                <p className="text--md">Stai per vedere <span>2 performance</span>.</p>
             </div>
 
             <div className="performances-description">
-                <p className='text--lg'>Alla fine ti chiederemo di<br></br>dare<span> il tuo feedback da giudice</span>.</p>
+                <p className='text--md'>Alla fine ti chiederemo di immedesimarti in un giudice e <br></br>dare<span> il tuo feedback</span>.</p>
             </div>
 
             <div className='performances-action'>
