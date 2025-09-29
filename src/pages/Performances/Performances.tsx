@@ -57,7 +57,7 @@ const Performances = () => {
             </div>
 
             <div className="performances-info">
-                <p className='text--md'>(L'esperienza durerà circa 3 minuti)</p>
+                <p className='text--md'>(Durata esperienza: circa 3 minuti)</p>
             </div>
         </div>
     );
