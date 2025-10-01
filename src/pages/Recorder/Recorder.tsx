@@ -3,6 +3,7 @@ import VideoRecorder from "../../components/VideoRecorder/VideoRecorder";
 import './Recorder.scss';
 import { useNavigate } from "react-router-dom";
 import { uploadVideo } from "../../firebase/videoService";
+import { sendVideoEmail } from "../../firebase/emailService";
 
 const Recorder = () => {
     const navigate = useNavigate();
@@ -24,7 +25,9 @@ const Recorder = () => {
     const onContinue = async () => {
         if(!recordedVideo) return;
 
-        await uploadVideo(recordedVideo);
+        const url = await uploadVideo(recordedVideo);
+        if(!url) return;
+        await sendVideoEmail(url);
         navigate('/thanksgiving');
     }
 
