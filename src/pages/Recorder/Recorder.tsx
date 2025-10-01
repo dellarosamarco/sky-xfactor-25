@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import VideoRecorder from "../../components/VideoRecorder/VideoRecorder";
 import './Recorder.scss';
 import { useNavigate } from "react-router-dom";
+import { uploadVideo } from "../../firebase/videoService";
 
 const Recorder = () => {
     const navigate = useNavigate();
-    const [countdown, setCountdown] = useState(10);
+    const [countdown, setCountdown] = useState(3);
     const [recordedVideo, setRecordedVideo] = useState<Blob | undefined>();
     const [recording, setRecording] = useState(false);
 
@@ -20,8 +21,10 @@ const Recorder = () => {
         URL.revokeObjectURL(url);
     };
 
-    const onContinue = () => {
-        downloadRecording();
+    const onContinue = async () => {
+        if(!recordedVideo) return;
+
+        await uploadVideo(recordedVideo);
         navigate('/thanksgiving');
     }
 

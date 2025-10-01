@@ -8,10 +8,10 @@ const Homepage = () => {
     const [email, setEmail] = useState<string | undefined>();
     const navigate = useNavigate();
 
-    const onRegister = async () => { 
+    const onRegister = async () => {
         if(!email) return;
 
-        const { error } = await register(email, '12345');
+        const { error } = await register(email, process.env.REACT_APP_TEMP_PASS);
 
         if(error) {
             alert(error);
@@ -39,7 +39,7 @@ const Homepage = () => {
                 <div className='homepage-wrapper-email-box'>
                     <p className='text--md'>E-mail:</p>
                     <input className='input' onChange={(e) => setEmail(e.target.value)} ></input>
-                    <button className='button' onClick={onContinue}>Invia e inizia!</button>
+                    <button className='button' onClick={onRegister}>Invia e inizia!</button>
                 </div>
             </div>
         </div>
