@@ -4,6 +4,8 @@ html {
 
 body {
     background-color: var(--primary-color);
+    background-image: url('./assets/background.png');
+    background-size: cover;
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     height: 100%;

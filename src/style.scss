@@ -4,7 +4,7 @@
     --secondary-color: rgb(193, 0, 30);
     --secondary-color--hover: rgb(163, 0, 0);
 
-    --border-color: rgb(36, 36, 36);
+    --border-color: rgb(126, 126, 126);
 }
 
 .text {
@@ -43,7 +43,7 @@
 }
 
 .input {
-    background-color: var(--primary-color);
+    background-color: transparent;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     outline: none;

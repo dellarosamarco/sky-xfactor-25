@@ -36,10 +36,14 @@ const Homepage = () => {
                     <img src={Logo} width={320} alt=""></img>
                 </div>
 
+                <div className="homepage-wrapper-description">
+                    <p className='text--sm'>Registra il tuo <span>video feedback</span> per provare a vincere <span>2 posti per il Live</span> del <span>XX Ottobre</span>!</p>
+                </div>
+
                 <div className='homepage-wrapper-email-box'>
                     <p className='text--md'>E-mail:</p>
                     <input className='input' onChange={(e) => setEmail(e.target.value)} ></input>
-                    <button className='button' onClick={onRegister}>Invia e inizia!</button>
+                    <button className='button' onClick={onRegister}>Partecipa!</button>
                 </div>
             </div>
         </div>
