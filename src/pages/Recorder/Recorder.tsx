@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import VideoRecorder from "../../components/VideoRecorder/VideoRecorder";
 import './Recorder.scss';
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ import { useLoader } from "../../context/LoaderContext";
 const Recorder = () => {
     const { showLoader, hideLoader } = useLoader();
     const navigate = useNavigate();
-    const [countdown, setCountdown] = useState(3);
     const [recordedVideo, setRecordedVideo] = useState<Blob | undefined>();
     const [recording, setRecording] = useState(false);
 
@@ -40,38 +39,22 @@ const Recorder = () => {
         navigate('/thanksgiving');
     }
 
-    useEffect(() => {
-        if(countdown > 0) {
-            const timer = setTimeout(() => {
-                setCountdown(countdown - 1);
-            }, 1000);
-            return () => clearTimeout(timer);
-        }
-    }, [countdown]);
-
-    if(countdown === 0) { 
-        return (
-            <div className="page recorder">
-                <VideoRecorder 
-                    width={880} 
-                    height={495} 
-                    onVideoRecordered={(video) => setRecordedVideo(video)} 
-                    recording={recording} 
-                    setRecording={setRecording}
-                ></VideoRecorder>
-
-                <div className="recorder__actions">
-                    <button className="button" onClick={() => setRecording(!recording)}>{recording ? 'Stop' : 'Start' } recording</button>
-                    { recordedVideo && <button className="button" onClick={() => onContinue()}>Invia il tuo feedback</button> }
-                </div>
-            </div>
-        );
-    }
-
     return (
-        <div className="page">
-            <div className="recorder-countdown">
-                <p className="recorder-countdown__text">{countdown}</p>
+        <div className="page recorder">
+            <VideoRecorder 
+                width={880} 
+                height={495} 
+                onVideoRecordered={(video) => setRecordedVideo(video)} 
+                recording={recording} 
+                setRecording={setRecording}
+            ></VideoRecorder>
+
+            <div className="recorder__controls">
+                <button className="recorder__controls-control" onClick={() => setRecording(!recording)}>{recording ? '▶︎' : '◼' }</button>
+            </div>
+
+            <div className="recorder__actions">
+                { recordedVideo && <button className="button" onClick={() => onContinue()}>Invia il tuo feedback</button> }
             </div>
         </div>
     );

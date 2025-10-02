@@ -4,17 +4,27 @@
         display: flex;
         gap: 32px;
     }
-}
 
-.recorder-countdown {
-    background-color: black;
-    width: 880px;
-    height: 495px;
+    &__controls {
+        margin-top: 20px;
 
-    &__text {
-        color: white;
-        font-size: 100px;
-        text-align: center;
-        line-height: 495px;
+        &-control {
+            color: purple;
+            border: 3px solid purple;
+            background-color: transparent;
+            height: 50px;
+            width: 50px;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+
+            &:hover {
+                color: rgb(128, 0, 128, 0.7);
+                border-color: rgb(128, 0, 128, 0.7);
+            }
+        }
     }
 }
