@@ -23,11 +23,19 @@
 .button {
     &-register {
         background-color: var(--quaternary-color);
+
+        &:hover {
+            background-color: var(--quaternary-color--hover)!important;
+        }
     }
 
     &-feedback {
         background-color: var(--tertiary-color);
         position: relative;
+
+        &:hover {
+            background-color: var(--tertiary-color--hover)!important;
+        }
 
         .button-hint {
             font-size: 17.5px;
