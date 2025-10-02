@@ -56,12 +56,13 @@ const Performances = () => {
                         </div>
                     ) : (
                         <div className='performances-actions'>
-                            <button className='button' onClick={onCompleteVideo}>
+                            <button className='button button-register' onClick={onCompleteVideo}>
                                 Registra <br></br>il tuo feedback
                             </button>
 
-                            <button className='button' onClick={onViewSuggestions}>
+                            <button className='button button-feedback' onClick={onViewSuggestions}>
                                 Ricevi consigli <br></br>per un buon feedback
+                                <div className='button-hint'>Scelta consigliata</div>
                             </button>
                         </div>
                     )
