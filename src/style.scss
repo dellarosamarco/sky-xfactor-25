@@ -52,6 +52,15 @@
     &:hover {
         background-color: var(--secondary-color--hover);
     }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+
+        &:hover {
+            background-color: var(--secondary-color);
+        }
+    }
 }
 
 .input {

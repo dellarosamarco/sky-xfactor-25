@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Performances.scss';
 import { useNavigate } from 'react-router-dom';
 import { getPerformances } from '../../firebase/perfromancesService';
@@ -11,6 +11,8 @@ const Performances = () => {
     const [firstPerformance, setFirstPerformance] = useState<string | undefined>();
     const [secondPerformance, setSecondPerformance] = useState<string | undefined>();
     const { showLoader, hideLoader } = useLoader();
+    const [firstPerformanceWatched, setFirstPerformanceWatched] = useState(false);
+    const [secondPerformanceWatched, setSecondPerformanceWatched] = useState(false);
 
     useEffect(() => {
         loadPerformances();
@@ -37,11 +39,20 @@ const Performances = () => {
         }
     }
 
+    const onVideoEnded = () => {
+        if(performanceIndex === 0) {
+            setFirstPerformanceWatched(true);
+        }
+        else {
+            setSecondPerformanceWatched(true);
+        }
+    }
+
     if(isWatching) {
         return (
             <div className='page'>
                 {
-                    <video key={performanceIndex} width={880} height={495} controls autoPlay>
+                    <video key={performanceIndex} width={880} height={495} controls autoPlay onEnded={onVideoEnded}>
                         <source src={performanceIndex === 0 ? firstPerformance : secondPerformance} type="video/mp4"/>
                         Your browser does not support the video tag.
                     </video>
@@ -50,17 +61,17 @@ const Performances = () => {
                 {
                     performanceIndex === 0 ? (
                         <div className='performances-action'>
-                            <button className='button' onClick={onCompleteVideo}>
+                            <button className='button' onClick={onCompleteVideo} disabled={!firstPerformanceWatched}>
                                 Vai alla 2° esibizione
                             </button>
                         </div>
                     ) : (
                         <div className='performances-actions'>
-                            <button className='button button-register' onClick={onCompleteVideo}>
+                            <button className='button button-register' onClick={onCompleteVideo} disabled={!secondPerformanceWatched}>
                                 Registra <br></br>il tuo feedback
                             </button>
 
-                            <button className='button button-feedback' onClick={onViewSuggestions}>
+                            <button className='button button-feedback' onClick={onViewSuggestions} disabled={!secondPerformanceWatched}>
                                 Ricevi consigli <br></br>per un buon feedback
                                 <div className='button-hint'>Scelta consigliata</div>
                             </button>
