@@ -11,7 +11,7 @@ const ThanksGiving = () => {
         </div>
 
         <div className="thanksgiving-winners">
-            <p className="text--md">Gli autori dei <span>10 feedback</span>meglio strutturati <br></br>potranno andare al prossimo live<br></br> insieme a un +1</p>
+            <p className="text--md">Gli autori dei <span className='strong'>10 feedback</span>meglio strutturati <br></br>potranno andare al prossimo live<br></br> insieme a un +1</p>
         </div>
 
         <div className="thanksgiving-end">

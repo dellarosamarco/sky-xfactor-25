@@ -51,11 +51,15 @@ const Performances = () => {
     return (
         <div className="page performances">
             <div className="performances-title">
-                <p className="text--md">Stai per vedere <span>2 performance</span>.</p>
+                <p className="text--md">Stai per vedere <span className='strong'>2 performance</span>.</p>
             </div>
 
             <div className="performances-description">
-                <p className='text--md'>Alla fine ti chiederemo di immedesimarti in un giudice e <br></br>dare<span> il tuo feedback</span>.</p>
+                <p className='text--md'>Immedesimati in un <span className='strong'>giudice di X Factor</span>!</p>
+            </div>
+
+            <div className="performances-description">
+                <p className='text--md'>Alla fine ti chiederemo di registrare <br></br><span className='strong'>il tuo video-feedback</span>.</p>
             </div>
 
             <div className='performances-action'>

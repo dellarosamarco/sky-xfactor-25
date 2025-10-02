@@ -37,7 +37,7 @@ const Homepage = () => {
                 </div>
 
                 <div className="homepage-wrapper-description">
-                    <p className='text--sm'>Registra il tuo <span>video feedback</span> per provare a vincere <span>2 posti per il Live</span> del <span>XX Ottobre</span>!</p>
+                    <p className='text--md'>Registra il tuo <span className='strong'>video feedback</span> per provare a vincere <span className='strong'>2 posti per il Live</span> del <span className='strong'>XX Ottobre</span>!</p>
                 </div>
 
                 <div className='homepage-wrapper-email-box'>

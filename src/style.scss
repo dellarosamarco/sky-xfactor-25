@@ -14,9 +14,15 @@
     }
 
     &--md {
-        font-size: 28px;
-        font-weight: 500;
+        color: rgb(224, 224, 224);
+        font-size: 28px;;
     }
+}
+
+.strong {
+    color: white;
+    font-size: 29px;
+    font-weight: 900;
 }
 
 .page {
