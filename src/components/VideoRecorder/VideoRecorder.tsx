@@ -1,14 +1,26 @@
 import React, { useEffect, useRef } from "react";
 import { VideoRecorderProps } from "./VideoRecorder.types";
 
-const VideoRecorder: React.FC<VideoRecorderProps> = ({ width, height, onVideoRecordered, recording, setRecording }) => {
+const VideoRecorder: React.FC<VideoRecorderProps> = ({
+  width,
+  height,
+  onVideoRecordered,
+  recording,
+  setRecording
+}) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   useEffect(() => {
     const initMedia = async () => {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true, });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true,
+        });
+
+        streamRef.current = stream;
 
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
@@ -24,20 +36,25 @@ const VideoRecorder: React.FC<VideoRecorderProps> = ({ width, height, onVideoRec
             onVideoRecordered(blob);
           }
         };
-      } 
-      catch (err) {
+      } catch (err) {
         console.error("Errore nell’accesso a camera/microfono:", err);
       }
     };
 
     initMedia();
+
+    // cleanup allo smontaggio
+    return () => {
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+      }
+    };
   }, []);
 
   useEffect(() => {
     if (recording) {
       startRecording();
-    } 
-    else {
+    } else {
       stopRecording();
     }
   }, [recording]);
@@ -58,7 +75,12 @@ const VideoRecorder: React.FC<VideoRecorderProps> = ({ width, height, onVideoRec
 
   return (
     <div>
-      <video ref={videoRef} autoPlay playsInline style={{ width: width + 'px', height: height + 'px', objectFit: 'cover' }} />
+      <video
+        ref={videoRef}
+        autoPlay
+        playsInline
+        style={{ width: width + "px", height: height + "px", objectFit: "cover" }}
+      />
     </div>
   );
 };
