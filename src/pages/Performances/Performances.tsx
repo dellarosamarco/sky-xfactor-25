@@ -2,6 +2,7 @@ import { use, useEffect, useState } from 'react';
 import './Performances.scss';
 import { useNavigate } from 'react-router-dom';
 import { getPerformances } from '../../firebase/perfromancesService';
+import { useLoader } from '../../context/LoaderContext';
 
 const Performances = () => {
     const navigate = useNavigate();
@@ -9,15 +10,18 @@ const Performances = () => {
     const [performanceIndex, setPerformanceIndex] = useState(0);
     const [firstPerformance, setFirstPerformance] = useState<string | undefined>();
     const [secondPerformance, setSecondPerformance] = useState<string | undefined>();
+    const { showLoader, hideLoader } = useLoader();
 
     useEffect(() => {
         loadPerformances();
     }, []);
 
     const loadPerformances = async () => {
+        showLoader();
         const performances = await getPerformances();
         setFirstPerformance(performances.firstPerformance);
         setSecondPerformance(performances.secondPerformance);
+        hideLoader();
     }
 
     const onViewSuggestions = () => {

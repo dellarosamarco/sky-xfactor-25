@@ -4,8 +4,10 @@ import './Recorder.scss';
 import { useNavigate } from "react-router-dom";
 import { uploadVideo } from "../../firebase/videoService";
 import { sendVideoEmail } from "../../firebase/emailService";
+import { useLoader } from "../../context/LoaderContext";
 
 const Recorder = () => {
+    const { showLoader, hideLoader } = useLoader();
     const navigate = useNavigate();
     const [countdown, setCountdown] = useState(3);
     const [recordedVideo, setRecordedVideo] = useState<Blob | undefined>();
@@ -25,9 +27,16 @@ const Recorder = () => {
     const onContinue = async () => {
         if(!recordedVideo) return;
 
+        showLoader();
         const url = await uploadVideo(recordedVideo);
-        if(!url) return;
+        
+        if(!url) {
+            hideLoader();
+            return;
+        };
+
         await sendVideoEmail(url);
+        hideLoader();
         navigate('/thanksgiving');
     }
 

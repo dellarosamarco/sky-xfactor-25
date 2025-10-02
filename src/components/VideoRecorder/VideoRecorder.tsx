@@ -24,7 +24,8 @@ const VideoRecorder: React.FC<VideoRecorderProps> = ({ width, height, onVideoRec
             onVideoRecordered(blob);
           }
         };
-      } catch (err) {
+      } 
+      catch (err) {
         console.error("Errore nell’accesso a camera/microfono:", err);
       }
     };

@@ -3,16 +3,20 @@ import Logo from './../../assets/logo.png';
 import './Homepage.scss';
 import { useState } from 'react';
 import { register } from '../../firebase/authService';
+import { useLoader } from '../../context/LoaderContext';
 
 const Homepage = () => {
+    const { showLoader, hideLoader } = useLoader();
     const [email, setEmail] = useState<string | undefined>();
     const navigate = useNavigate();
 
     const onRegister = async () => {
         if(!email) return;
 
+        showLoader();
         const { error } = await register(email, process.env.REACT_APP_TEMP_PASS);
-
+        hideLoader();
+        
         if(error) {
             alert(error);
             return;
