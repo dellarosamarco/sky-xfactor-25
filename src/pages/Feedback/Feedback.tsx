@@ -24,7 +24,7 @@ const Feedback = () => {
             </div>
 
             <div className="feedback-description">
-                <p className="text--md">Tra 10" partirà la registrazione di un breve video<br></br>in cui <span>dovrai esprimere il tuo feedback</span>sulle esibizioni che hai appena visto.</p>
+                <p className="text--md">Tra 10" partirà la registrazione di un breve video<br></br>in cui <span className='strong'>dovrai esprimere il tuo feedback</span>sulle esibizioni che hai appena visto.</p>
             </div>
 
             <div className='feedback-info'>
