@@ -1,6 +1,6 @@
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth, db } from "./firebaseConfig";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 
 export const register = async (email: string, password: string) => {
   try {
@@ -16,12 +16,12 @@ export const register = async (email: string, password: string) => {
     return { user, error: null };
   } 
   catch (error: any) {
-    let errorMessage = "Errore sconosciuto";
+    if (error.code === "auth/email-already-in-use") {
+      return await login(email, password);
+    }
 
+    let errorMessage = "Errore sconosciuto";
     switch (error.code) {
-      case "auth/email-already-in-use":
-        errorMessage = "Questa email è già registrata.";
-        break;
       case "auth/invalid-email":
         errorMessage = "Formato email non valido.";
         break;
@@ -36,8 +36,20 @@ export const register = async (email: string, password: string) => {
   }
 };
 
-export const login = (email: string, password: string) => {
-  return signInWithEmailAndPassword(auth, email, password);
+export const login = async (email: string, password: string) => {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    await updateDoc(doc(db, "users", user.uid), {
+      lastLoginAt: new Date()
+    });
+
+    return { user, error: null };
+  } 
+  catch (error: any) {
+    return { user: null, error: error.message };
+  }
 };
 
 export const logout = () => {
