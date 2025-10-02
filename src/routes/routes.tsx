@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import { RouteObject } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
+import Suggestions from "../pages/Suggestions/Suggestions";
 
 const Homepage = lazy(() => import("../pages/Homepage/Homepage"));
 const Performances = lazy(() => import("../pages/Performances/Performances"));
@@ -17,6 +18,7 @@ export const routes: RouteObject[] = [
       { path: "/feedback", element: <Feedback /> },
       { path: "/recorder", element: <Recorder /> },
       { path: "/thanksgiving", element: <ThanksGiving /> },
+      { path: "/suggestions", element: <Suggestions /> },
       { path: "*", element: <Homepage /> },
     ],
   },

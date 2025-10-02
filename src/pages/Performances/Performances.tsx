@@ -20,6 +20,10 @@ const Performances = () => {
         setSecondPerformance(performances.secondPerformance);
     }
 
+    const onViewSuggestions = () => {
+        navigate('/suggestions');
+    }
+
     const onCompleteVideo = () => {
         if(performanceIndex === 0) {
             setPerformanceIndex(1);
@@ -39,11 +43,25 @@ const Performances = () => {
                     </video>
                 }
 
-                <div className='performances-action'>
-                    <button className='button' onClick={onCompleteVideo}>
-                        {performanceIndex === 0 ? 'Vai alla 2° esibizione' : 'Dai il tuo feedback'}
-                    </button>
-                </div>
+                {
+                    performanceIndex === 0 ? (
+                        <div className='performances-action'>
+                            <button className='button' onClick={onCompleteVideo}>
+                                Vai alla 2° esibizione
+                            </button>
+                        </div>
+                    ) : (
+                        <div className='performances-actions'>
+                            <button className='button' onClick={onCompleteVideo}>
+                                Registra <br></br>il tuo feedback
+                            </button>
+
+                            <button className='button' onClick={onViewSuggestions}>
+                                Ricevi consigli <br></br>per un buon feedback
+                            </button>
+                        </div>
+                    )
+                }
             </div>
         );
     }

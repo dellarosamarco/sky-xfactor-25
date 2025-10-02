@@ -1,0 +1,46 @@
+.suggestions-cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+
+    &-row {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.suggestion-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    font-size: 70px;
+    font-weight: 800;
+    cursor: pointer;
+
+    &-1 {
+        width: 38%;
+        height: 150px;
+        margin: auto;
+        background-color: var(--tertiary-color);
+    }
+
+    &-2 {
+        width: 58%;
+        height: 170px;
+        margin-bottom: 10px;
+        background-color: var(--quaternary-color);
+    }   
+
+    &-3 {
+        width: 90%;
+        height: 190px;
+        margin: auto;
+        background-color: var(--tertiary-color);
+    }
+}
+
+.suggestions-page-action {
+    margin-top: 48px;
+}
