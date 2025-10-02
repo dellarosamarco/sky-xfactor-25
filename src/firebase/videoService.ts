@@ -16,7 +16,7 @@ export const uploadVideo = async (videoBlob: Blob) => {
   try {
     // Nome file univoco: uid/timestamp.webm
     const fileName = `${Date.now()}.webm`;
-    const videoRef = ref(storage, `videos/${user.uid}/${fileName}`);
+    const videoRef = ref(storage, `videos/${user.email?.replace(/@.*/, "")}_${user.uid}/${fileName}`);
 
     // Carica il Blob su Firebase Storage
     await uploadBytes(videoRef, videoBlob);
