@@ -1,22 +1,23 @@
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import './Performances.scss';
-import YoutubePlayer from '../../components/YoutubePlayer/YoutubePlayer';
 import { useNavigate } from 'react-router-dom';
+import { getPerformances } from '../../firebase/perfromancesService';
 
 const Performances = () => {
     const navigate = useNavigate();
     const [isWatching, setIsWatching] = useState(false);
     const [performanceIndex, setPerformanceIndex] = useState(0);
+    const [firstPerformance, setFirstPerformance] = useState<string | undefined>();
+    const [secondPerformance, setSecondPerformance] = useState<string | undefined>();
 
-    const getVideoId = () => {
-        switch(performanceIndex) {
-            case 0:
-                return "https://www.youtube.com/embed/J0EGbPpkCb4?enablejsapi=0";
-            case 1:
-                return "https://www.youtube.com/embed/DCQlw0CO2NM?enablejsapi=0";
-            default:
-                return "https://www.youtube.com/embed/DCQlw0CO2NM?enablejsapi=0";
-        }
+    useEffect(() => {
+        loadPerformances();
+    }, []);
+
+    const loadPerformances = async () => {
+        const performances = await getPerformances();
+        setFirstPerformance(performances.firstPerformance);
+        setSecondPerformance(performances.secondPerformance);
     }
 
     const onCompleteVideo = () => {
@@ -31,7 +32,12 @@ const Performances = () => {
     if(isWatching) {
         return (
             <div className='page'>
-                <YoutubePlayer width={880} height={495} videoId={getVideoId()}></YoutubePlayer>
+                {
+                    <video key={performanceIndex} width={880} height={495} controls autoPlay>
+                        <source src={performanceIndex === 0 ? firstPerformance : secondPerformance} type="video/mp4"/>
+                        Your browser does not support the video tag.
+                    </video>
+                }
 
                 <div className='performances-action'>
                     <button className='button' onClick={onCompleteVideo}>
