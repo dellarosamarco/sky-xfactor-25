@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import VideoRecorder from "../../components/VideoRecorder/VideoRecorder";
 import './Recorder.scss';
 import { useNavigate } from "react-router-dom";
@@ -9,16 +9,38 @@ import PlayIcon from './../../assets/play.svg';
 import StopIcon from './../../assets/stop.svg';
 import RetryIcon from './../../assets/retry.svg';
 
+const MAX_DURATION = 90; // 90 secondi
+
 const Recorder = () => {
     const { showLoader, hideLoader } = useLoader();
     const navigate = useNavigate();
     const [recordedVideo, setRecordedVideo] = useState<Blob | undefined>();
     const [recording, setRecording] = useState(false);
+    const [countdown, setCountdown] = useState(MAX_DURATION);
+
+    // gestisce il countdown
+    useEffect(() => {
+        let interval: NodeJS.Timeout;
+
+        if (recording) {
+            setCountdown(MAX_DURATION); // resetta quando parte
+            interval = setInterval(() => {
+                setCountdown(prev => {
+                    if (prev <= 1) {
+                        clearInterval(interval);
+                        setRecording(false); // forza stop
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+        }
+
+        return () => clearInterval(interval);
+    }, [recording]);
 
     const onRetry = () => {
-        // resetta la registrazione attuale
         setRecordedVideo(undefined);
-        // avvia subito una nuova registrazione
         setRecording(true);
     };
 
@@ -40,6 +62,13 @@ const Recorder = () => {
 
     return (
         <div className="page recorder">
+            {/* Countdown */}
+            {recording && (
+                <div className="recorder__countdown">
+                    {countdown}s
+                </div>
+            )}
+
             <VideoRecorder 
                 width={880} 
                 height={495} 
@@ -60,12 +89,12 @@ const Recorder = () => {
                 )}
 
                 {/* Start/Stop */}
-                <button 
+                {!recordedVideo && <button 
                     className="recorder__controls-control" 
                     onClick={() => setRecording(!recording)}
                 >
                     <img src={recording ? StopIcon : PlayIcon} alt="Play" />
-                </button>
+                </button>}
             </div>
 
             <div className="recorder__actions">
