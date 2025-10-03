@@ -107,7 +107,7 @@ const Recorder = () => {
       </div>
 
       <div className="recorder__actions">
-        {recordedVideo ? (
+        {recordedVideo && (
           <>
             <button className="button" onClick={onContinue}>
               Invia il tuo feedback
@@ -117,17 +117,6 @@ const Recorder = () => {
               Rifai registrazione
             </button>
           </>
-        ) : (
-          <div className="recorder__prompts">
-            <div className="recorder__prompt">
-              <img src={PlayIcon} alt="" />
-              <span>Premi REC quando sei pronto: puoi rifare la registrazione in qualsiasi momento.</span>
-            </div>
-            <div className="recorder__prompt">
-              <img src={StopIcon} alt="" />
-              <span>Usa STOP per chiudere prima dei {MAX_DURATION} secondi.</span>
-            </div>
-          </div>
         )}
       </div>
     </div>

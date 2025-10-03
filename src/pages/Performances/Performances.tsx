@@ -129,7 +129,7 @@ const Performances = () => {
       <div className='performances__hero'>
         <span className='performances__badge'>Fase 1 · Scouting</span>
         <div className='page__headline'>
-          <p className='text--lg'>Stai per vedere due performance in anteprima</p>
+          <p className='text--lg'>Stai per vedere due performance</p>
           <p className='text--md'>
             Immedesimati in un <span className='strong'>giudice di X Factor</span> e prendi nota delle tue impressioni.
           </p>
@@ -143,7 +143,7 @@ const Performances = () => {
 
       <div className='performances__cta'>
         <button className='button' onClick={() => setIsWatching(true)}>
-          Inizia la visione
+          Inizia
         </button>
         <p className='helper-text'>Durata totale esperienza: circa 3 minuti.</p>
       </div>

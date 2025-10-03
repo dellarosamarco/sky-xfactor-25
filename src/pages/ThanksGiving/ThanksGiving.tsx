@@ -25,7 +25,7 @@ const ThanksGiving = () => {
         <div className="thanksgiving__confetti" aria-hidden="true" />
         <div className="thanksgiving__icon" aria-hidden="true">✨</div>
         <p className="thanksgiving__highlight">
-          <span className='strong'>10 feedback</span> strutturati con cura vinceranno <span className='strong'>2 posti VIP</span> per il prossimo Live.
+          <span className='strong'>10 feedback</span> strutturati con cura vinceranno <span className='strong'>2 biglietti</span> per il prossimo Live.
         </p>
         <p className="text--md">Tieni d’occhio la tua casella e-mail nei prossimi giorni per scoprire se sei tra i finalisti.</p>
         <div className="thanksgiving__steps">

@@ -54,7 +54,7 @@ const Homepage = () => {
           <p className="text--lg">Fai il giudice di X Factor per un giorno</p>
           <p className="text--md">
             Guarda due performance e registra il tuo <span className="strong">video feedback</span>.<br />
-            Potresti vincere <span className="strong">2 posti VIP</span> per il Live del <span className="strong">XX Ottobre</span>!
+            Potresti vincere <span className="strong">2 biglietti</span> per il Live del <span className="strong">XX Ottobre</span>!
           </p>
         </div>
       </div>
@@ -78,7 +78,7 @@ const Homepage = () => {
               aria-invalid={Boolean(error)}
             />
             <button className="button" onClick={handleRegister}>
-              Partecipa ora
+              Entra
             </button>
           </div>
           {error && <span className="homepage__error" role="alert">{error}</span>}
