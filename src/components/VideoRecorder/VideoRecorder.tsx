@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { VideoRecorderProps } from "./VideoRecorder.types";
+import "./VideoRecorder.scss";
 
 const VideoRecorder: React.FC<VideoRecorderProps> = ({
   width,
   height,
   onVideoRecordered,
   recording,
-  setRecording
+  setRecording,
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -43,10 +44,9 @@ const VideoRecorder: React.FC<VideoRecorderProps> = ({
 
     initMedia();
 
-    // cleanup allo smontaggio
     return () => {
       if (streamRef.current) {
-        streamRef.current.getTracks().forEach(track => track.stop());
+        streamRef.current.getTracks().forEach((track) => track.stop());
       }
     };
   }, []);
@@ -60,27 +60,51 @@ const VideoRecorder: React.FC<VideoRecorderProps> = ({
   }, [recording]);
 
   const startRecording = () => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "recording") {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state !== "recording"
+    ) {
       mediaRecorderRef.current.start();
       setRecording(true);
     }
   };
 
   const stopRecording = () => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state === "recording"
+    ) {
       mediaRecorderRef.current.stop();
       setRecording(false);
     }
   };
 
   return (
-    <div>
+    <div className="video-recorder">
       <video
         ref={videoRef}
         autoPlay
         playsInline
-        style={{ width: width + "px", height: height + "px", objectFit: "cover" }}
+        style={{
+          width: width + "px",
+          height: height + "px",
+          objectFit: "cover",
+        }}
       />
+
+      {/* Bottone REC solo prima di iniziare */}
+      {!recording && (
+        <button className="rec-button" onClick={() => setRecording(true)}>
+          <span className="rec-dot"></span> REC
+        </button>
+      )}
+
+      {/* Bottone STOP solo durante la registrazione */}
+      {recording && (
+        <button className="stop-button" onClick={() => setRecording(false)}>
+          ⏹ STOP
+        </button>
+      )}
     </div>
   );
 };

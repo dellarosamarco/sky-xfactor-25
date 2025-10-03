@@ -92,14 +92,6 @@ const Recorder = () => {
                         <img src={RetryIcon} alt="Retry" />
                     </button>
                 )}
-
-                {/* Start/Stop */}
-                {!recordedVideo && <button 
-                    className="recorder__controls-control" 
-                    onClick={() => setRecording(!recording)}
-                >
-                    <img src={recording ? StopIcon : PlayIcon} alt="Play" />
-                </button>}
             </div>
 
             <div className="recorder__actions">
