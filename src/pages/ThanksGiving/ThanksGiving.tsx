@@ -1,12 +1,15 @@
 import './ThanksGiving.scss';
 import { useBackgroundMusic } from './../../context/BackgroundMusicContext';
 import { useEffect } from 'react';
+import { logout } from '../../firebase/authService';
 
 const ThanksGiving = () => {
     const { unmute } = useBackgroundMusic();
 
     useEffect(() => {
         unmute();
+
+        logout();
     }, []);
 
     return <div className="page thanksgiving">
