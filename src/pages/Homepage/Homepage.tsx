@@ -81,6 +81,7 @@ const Homepage = () => {
               Entra
             </button>
           </div>
+          
           {error && <span className="homepage__error" role="alert">{error}</span>}
         </div>
       </div>
