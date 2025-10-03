@@ -84,6 +84,7 @@ const VideoRecorder: React.FC<VideoRecorderProps> = ({
       <video
         ref={videoRef}
         autoPlay
+        muted
         playsInline
         style={{
           width: width + "px",
