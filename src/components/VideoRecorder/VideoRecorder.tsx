@@ -92,19 +92,18 @@ const VideoRecorder: React.FC<VideoRecorderProps> = ({
         }}
       />
 
-      {/* Bottone REC solo prima di iniziare */}
-      {!recording && (
-        <button className="rec-button" onClick={() => setRecording(true)}>
-          <span className="rec-dot"></span> REC
-        </button>
-      )}
-
-      {/* Bottone STOP solo durante la registrazione */}
-      {recording && (
-        <button className="stop-button" onClick={() => setRecording(false)}>
-          ⏹ STOP
-        </button>
-      )}
+      <button
+        className={`record-control ${recording ? "stop" : "rec"}`}
+        onClick={() => setRecording(!recording)}
+      >
+        {!recording ? (
+          <>
+            <span className="rec-dot"></span> REC
+          </>
+        ) : (
+          "STOP"
+        )}
+      </button>
     </div>
   );
 };
