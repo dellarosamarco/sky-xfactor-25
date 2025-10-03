@@ -20,11 +20,15 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, rgba(15, 15, 34, 0.7), rgba(15, 15, 34, 0.3))
-      padding-box,
-    radial-gradient(circle at 20% 20%, rgba(193, 0, 30, 0.32), transparent 45%),
-    radial-gradient(circle at 82% 18%, rgba(187, 24, 215, 0.28), transparent 48%),
-    radial-gradient(circle at 50% 80%, rgba(41, 217, 130, 0.24), transparent 50%);
+  background:
+  linear-gradient(
+    135deg,
+    rgba(15, 15, 34, 0.05),
+    rgba(15, 15, 34, 0.02)
+  ) padding-box,
+  radial-gradient(circle at 20% 20%, rgba(193, 0, 30, 0.04), transparent 45%),
+  radial-gradient(circle at 82% 18%, rgba(187, 24, 215, 0.03), transparent 48%),
+  radial-gradient(circle at 50% 80%, rgba(41, 217, 130, 0.02), transparent 50%);
   z-index: -1;
   pointer-events: none;
 }
