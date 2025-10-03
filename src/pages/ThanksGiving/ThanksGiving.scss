@@ -1,13 +1,111 @@
 .thanksgiving {
-    &-title {
-        
-    }
+  display: grid;
+  gap: clamp(28px, 5vh, 40px);
+  text-align: center;
 
-    &-email {
-        margin-bottom: 42px;
-    }
+  &__hero {
+    display: grid;
+    gap: 16px;
+  }
 
-    &-winners {
-        margin-bottom: 42px;
+  &__badge {
+    justify-self: center;
+    padding: 8px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  &__card {
+    position: relative;
+    padding: clamp(24px, 5vw, 42px);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: linear-gradient(135deg, rgba(21, 21, 38, 0.9), rgba(32, 16, 38, 0.7));
+    box-shadow: var(--shadow-md);
+    display: grid;
+    gap: clamp(18px, 3vw, 26px);
+    overflow: hidden;
+  }
+
+  &__confetti {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.15), transparent 55%),
+      radial-gradient(circle at 85% 25%, rgba(187, 24, 215, 0.3), transparent 58%),
+      radial-gradient(circle at 50% 80%, rgba(41, 217, 130, 0.2), transparent 60%);
+    opacity: 0.9;
+    mix-blend-mode: screen;
+  }
+
+  &__icon {
+    place-self: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 36px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 60%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+    z-index: 1;
+  }
+
+  &__highlight {
+    font-size: clamp(20px, 3vw, 24px);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    z-index: 1;
+  }
+
+  &__steps {
+    z-index: 1;
+    display: grid;
+    gap: 12px;
+  }
+
+  &__step {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+
+    strong {
+      color: #fff;
     }
+  }
+
+  &__step-index {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 16px;
+    background: linear-gradient(135deg, var(--secondary-color), var(--quaternary-color));
+    box-shadow: 0 10px 22px rgba(255, 31, 90, 0.3);
+    color: #fff;
+  }
+
+  .helper-text {
+    color: rgba(255, 255, 255, 0.72);
+  }
+}
+
+@media (max-width: 600px) {
+  .thanksgiving__badge {
+    letter-spacing: 0.18em;
+  }
 }

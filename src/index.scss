@@ -1,21 +1,53 @@
-html {
-    height: 100%;
+html,
+body,
+#root {
+  height: 100%;
 }
 
 body {
-    background-color: var(--primary-color);
-    background-image: url('./assets/background.png');
-    background-size: cover;
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    height: 100%;
+  margin: 0;
+  background-color: var(--primary-color);
+  background-image: url("./assets/background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
 }
 
-#root {
-    height: 100%;
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(15, 15, 34, 0.7), rgba(15, 15, 34, 0.3))
+      padding-box,
+    radial-gradient(circle at 20% 20%, rgba(193, 0, 30, 0.32), transparent 45%),
+    radial-gradient(circle at 82% 18%, rgba(187, 24, 215, 0.28), transparent 48%),
+    radial-gradient(circle at 50% 80%, rgba(41, 217, 130, 0.24), transparent 50%);
+  z-index: -1;
+  pointer-events: none;
 }
 
 p {
-    margin: 0;
-    color: white;
+  margin: 0;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--secondary-color), var(--quaternary-color));
+  border-radius: 999px;
 }

@@ -1,49 +1,173 @@
 .performances {
-    &-title {
-        margin-bottom: 64px;
-    }
+  display: grid;
+  gap: clamp(28px, 4vh, 40px);
 
-    &-description {
-        margin-bottom: 64px;
-    }
+  &__hero {
+    display: grid;
+    gap: 22px;
+  }
 
-    &-action {
-        margin-top: 48px;
-        margin-bottom: 32px;
-    }
+  &__badge {
+    align-self: center;
+    padding: 8px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
 
-    &-actions {
-        margin-top: 48px;
-        margin-bottom: 32px;
-        display: flex;
-        gap: 76px;
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 14px;
+
+    li {
+      position: relative;
+      padding-left: 28px;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.7);
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 9px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--secondary-color), var(--quaternary-color));
+        box-shadow: 0 6px 16px rgba(255, 31, 90, 0.35);
+      }
     }
+  }
+
+  &__cta {
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+  }
+
+  &__status {
+    display: grid;
+    gap: 12px;
+    width: 100%;
+  }
+
+  &__pill {
+    justify-self: start;
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  &__progress {
+    position: relative;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+  }
+
+  &__progress-bar {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--secondary-color), var(--quaternary-color));
+    transition: width 0.4s ease;
+  }
+
+  &__player {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    video {
+      width: min(880px, 100%);
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: var(--shadow-md);
+      background: #000;
+    }
+  }
+
+  &__actions {
+    margin-top: clamp(18px, 4vh, 28px);
+    display: grid;
+    gap: 12px;
+    justify-items: center;
+
+    &--dual {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+  }
+
+  &__cta {
+    width: 100%;
+  }
+}
+
+.performances--player {
+  align-items: stretch;
 }
 
 .button {
-    &-register {
-        background-color: var(--quaternary-color);
+  &-register {
+    background: linear-gradient(135deg, var(--quaternary-color), var(--secondary-color));
+  }
 
-        &:hover {
-            background-color: var(--quaternary-color--hover)!important;
-        }
+  &-feedback {
+    position: relative;
+    background: linear-gradient(135deg, var(--tertiary-color), #1bb76a);
+
+    .button-hint {
+      position: absolute;
+      bottom: -28px;
+      right: 12px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(27, 183, 106, 0.2);
+      border: 1px solid rgba(41, 217, 130, 0.4);
+      text-transform: uppercase;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .performances {
+    &__actions--dual {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .performances {
+    &__badge {
+      letter-spacing: 0.16em;
     }
 
-    &-feedback {
-        background-color: var(--tertiary-color);
-        position: relative;
-
-        &:hover {
-            background-color: var(--tertiary-color--hover)!important;
-        }
-
-        .button-hint {
-            font-size: 17.5px;
-            position: absolute;
-            background-color: rgb(64, 107, 64);
-            bottom: -25px;
-            right: -55px;
-            padding: 8px 18px;
-        }
+    &__list li {
+      font-size: 15px;
+      padding-left: 24px;
     }
+  }
+
+  .button-feedback .button-hint {
+    position: static;
+    margin-top: 8px;
+  }
 }

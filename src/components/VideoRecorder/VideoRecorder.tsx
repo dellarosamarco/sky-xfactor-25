@@ -87,8 +87,9 @@ const VideoRecorder: React.FC<VideoRecorderProps> = ({
         muted
         playsInline
         style={{
-          width: width + "px",
-          height: height + "px",
+          width: "100%",
+          maxWidth: `${width}px`,
+          aspectRatio: `${width} / ${height}`,
           objectFit: "cover",
         }}
       />
