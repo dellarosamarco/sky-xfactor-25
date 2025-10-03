@@ -11,7 +11,7 @@ const Suggestions = () => {
 
     useEffect(() => {
         unmute();
-    }, [unmute]);
+    }, []);
 
     const onContinue = () => {
         navigate('/recorder');

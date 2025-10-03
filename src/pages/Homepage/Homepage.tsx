@@ -4,65 +4,108 @@ import './Homepage.scss';
 import { useState } from 'react';
 import { register } from '../../firebase/authService';
 import { useLoader } from '../../context/LoaderContext';
-import { useBackgroundMusic } from '../../hooks/useBackgroundMusic';
 
 const Homepage = () => {
-    const { showLoader, hideLoader } = useLoader();
-    const [email, setEmail] = useState<string | undefined>();
-    const navigate = useNavigate();
+  const { showLoader, hideLoader } = useLoader();
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-    const isValidEmail = (email: string) => {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    };
+  const isValidEmail = (value: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(value.trim());
+  };
 
-    const onRegister = async () => {
-        if(!email) return;
-
-        if (!isValidEmail(email)) {
-            alert("Please enter a valid email address.");
-            return;
-        }
-
-        showLoader();
-        const { error } = await register(email, process.env.REACT_APP_TEMP_PASS);
-        hideLoader();
-        
-        if(error) {
-            alert(error);
-            return;
-        }
-
-        onContinue();
+  const handleRegister = async () => {
+    if (!email) {
+      setError('Inserisci la tua e-mail per partecipare.');
+      return;
     }
 
-    const onContinue = async () => {
-        navigate('/performances');
+    if (!isValidEmail(email)) {
+      setError('Ops! Controlla il formato della tua e-mail.');
+      return;
     }
 
-    return (
-        <div className="page homepage">
-            <div className="homepage-wrapper">
-                <div className='homepage-wrapper-title'>
-                    <p className="text--lg">Fai il giudice di X Factor per un giorno!</p>
-                </div>
+    setError(null);
+    showLoader();
+    const { error: registerError } = await register(email.trim(), process.env.REACT_APP_TEMP_PASS);
+    hideLoader();
 
-                <div className="homepage-wrapper-icon">
-                    <img src={Logo} width={320} alt=""></img>
-                </div>
+    if (registerError) {
+      setError(registerError);
+      return;
+    }
 
-                <div className="homepage-wrapper-description">
-                    <p className='text--md'>Registra il tuo <span className='strong'>video feedback</span> per provare a vincere <br></br><span className='strong'>2 posti per il Live</span> del <span className='strong'>XX Ottobre</span>!</p>
-                </div>
+    navigate('/performances');
+  };
 
-                <div className='homepage-wrapper-email-box'>
-                    <p className='text--md'>E-mail:</p>
-                    <input className='input' onChange={(e) => setEmail(e.target.value)} ></input>
-                    <button className='button' onClick={onRegister}>Partecipa!</button>
-                </div>
-            </div>
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleRegister();
+    }
+  };
+
+  return (
+    <div className="page homepage">
+      <div className="homepage__hero">
+        <span className="homepage__badge">Esperienza esclusiva</span>
+        <div className="page__headline">
+          <p className="text--lg">Fai il giudice di X Factor per un giorno</p>
+          <p className="text--md">
+            Guarda due performance e registra il tuo <span className="strong">video feedback</span>.<br />
+            Potresti vincere <span className="strong">2 posti VIP</span> per il Live del <span className="strong">XX Ottobre</span>!
+          </p>
         </div>
-    );
-}
+      </div>
+
+      <div className="homepage__card">
+        <img src={Logo} alt="Logo X Factor" className="homepage__logo" width={320} height={160} />
+
+        <div className="homepage__form">
+          <label htmlFor="email" className="homepage__label">
+            Inserisci la tua e-mail per iniziare
+          </label>
+          <div className="homepage__input-row">
+            <input
+              id="email"
+              className="input"
+              type="email"
+              placeholder="nome@esempio.com"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              onKeyDown={handleKeyDown}
+              aria-invalid={Boolean(error)}
+            />
+            <button className="button" onClick={handleRegister}>
+              Partecipa ora
+            </button>
+          </div>
+          {error && <span className="homepage__error" role="alert">{error}</span>}
+          <p className="homepage__disclaimer">
+            Riceverai un link di conferma via e-mail. Niente spam: solo X Factor.
+          </p>
+        </div>
+      </div>
+
+      <div className="homepage__steps">
+        <div className="homepage__step">
+          <span className="homepage__step-index">1</span>
+          <p className="homepage__step-label">Guarda 2 performance</p>
+        </div>
+        <div className="homepage__step">
+          <span className="homepage__step-index">2</span>
+          <p className="homepage__step-label">Scopri i consigli dei coach</p>
+        </div>
+        <div className="homepage__step">
+          <span className="homepage__step-index">3</span>
+          <p className="homepage__step-label">Registra il tuo video-feedback</p>
+        </div>
+      </div>
+
+      <p className="helper-text">Durata esperienza: circa 3 minuti. Puoi interrompere quando vuoi.</p>
+    </div>
+  );
+};
 
 export default Homepage;

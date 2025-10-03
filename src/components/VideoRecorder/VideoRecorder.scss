@@ -1,66 +1,72 @@
 .video-recorder {
   position: relative;
-  display: inline-block;
+  width: 100%;
+  display: grid;
+  place-items: center;
 
   video {
-    border-radius: 16px;
+    width: 100%;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), var(--shadow-md);
+    background: #000;
+    object-fit: cover;
   }
 
   .record-control {
     position: absolute;
-    bottom: 60px;
+    bottom: clamp(18px, 4vw, 28px);
     left: 50%;
     transform: translateX(-50%);
-    padding: 10px 30px;
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
+    padding: 14px 32px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(12, 12, 24, 0.75);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    position: relative;
+    gap: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+      background 0.2s ease, color 0.2s ease;
+    backdrop-filter: blur(12px);
 
-    // lato sinistro con angoli
-    &::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      width: 20px;
-      border-left: 4px solid white;
-      border-top: 4px solid white;
-      border-bottom: 4px solid white;
-      border-radius: 12px 0 0 12px;
+    &:hover {
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
     }
 
-    // lato destro con angoli
-    &::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      width: 20px;
-      border-right: 4px solid white;
-      border-top: 4px solid white;
-      border-bottom: 4px solid white;
-      border-radius: 0 12px 12px 0;
+    &:active {
+      transform: translateX(-50%) translateY(1px);
     }
 
     .rec-dot {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      background: red;
-      display: inline-block;
+      background: linear-gradient(135deg, #ff1f5a, #ff7a8c);
+      animation: pulse 1.4s ease-in-out infinite;
     }
 
     &.stop {
-      color: red;
+      color: #ff7a8c;
+      border-color: rgba(255, 122, 140, 0.75);
     }
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.7);
+    opacity: 0.6;
   }
 }
