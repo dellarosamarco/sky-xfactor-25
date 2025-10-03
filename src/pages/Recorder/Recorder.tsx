@@ -10,7 +10,7 @@ import StopIcon from './../../assets/stop.svg';
 import RetryIcon from './../../assets/retry.svg';
 import { useBackgroundMusic } from './../../context/BackgroundMusicContext';
 
-const MAX_DURATION = 90;
+const MAX_DURATION = 45;
 
 const Recorder = () => {
     const { mute } = useBackgroundMusic();
