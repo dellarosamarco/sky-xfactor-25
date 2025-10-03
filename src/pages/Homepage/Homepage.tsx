@@ -82,9 +82,6 @@ const Homepage = () => {
             </button>
           </div>
           {error && <span className="homepage__error" role="alert">{error}</span>}
-          <p className="homepage__disclaimer">
-            Riceverai un link di conferma via e-mail. Niente spam: solo X Factor.
-          </p>
         </div>
       </div>
 
