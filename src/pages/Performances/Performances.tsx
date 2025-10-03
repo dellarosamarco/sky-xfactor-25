@@ -80,7 +80,7 @@ const Performances = () => {
                             onClick={onCompleteVideo} 
                             disabled={!firstPerformanceWatched}
                         >
-                            Vai alla 2° esibizione
+                            Vai alla 2<sup>a</sup> esibizione
                         </button>
                     </div>
                 ) : (
