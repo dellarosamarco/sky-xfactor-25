@@ -96,13 +96,12 @@ const Recorder = () => {
         </div>
 
         <aside className="recorder__panel">
-          <p className="recorder__hint">Prima di iniziare respira, sorridi e guarda bene la camera.</p>
+          <p className="recorder__hint">Respira, sorridi e guarda in camera:</p>
           <ul className="recorder__guide">
-            <li>Apri con un ringraziamento o un apprezzamento autentico.</li>
-            <li>Spiega un punto da migliorare: ricorda gli esempi che hai visto.</li>
+            <li>Apri con un apprezzamento sincero</li>
+            <li>Spiega un punto da migliorare: fai un esempio</li>
             <li>Chiudi con un invito concreto su cosa provare alla prossima esibizione.</li>
           </ul>
-          <p className="helper-text">Premi il pulsante REC sotto il video per avviare o fermare la registrazione.</p>
         </aside>
       </div>
 

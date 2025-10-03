@@ -14,7 +14,7 @@ const ThanksGiving = () => {
   return (
     <div className="page thanksgiving">
       <div className="thanksgiving__hero">
-        <span className="thanksgiving__badge">Missione completata</span>
+        <span className="thanksgiving__badge">E ora... il verdetto!</span>
         <div className="page__headline">
           <p className="text--lg">Grazie per aver partecipato!</p>
           <p className="text--md">Ti abbiamo inviato una copia del video via e-mail.</p>
@@ -25,7 +25,7 @@ const ThanksGiving = () => {
         <div className="thanksgiving__confetti" aria-hidden="true" />
         <div className="thanksgiving__icon" aria-hidden="true">✨</div>
         <p className="thanksgiving__highlight">
-          <span className='strong'>10 feedback</span> strutturati con cura vinceranno <span className='strong'>2 biglietti</span> per il prossimo Live.
+          I dieci colleghi che hanno dato<br></br>i feedback più curati e strutturati<br></br>vinceranno un biglietto per sé e un +1<br></br>per il Live del XX Ottobre
         </p>
         <p className="text--md">Tieni d’occhio la tua casella e-mail nei prossimi giorni per scoprire se sei tra i finalisti.</p>
         <div className="thanksgiving__steps">
