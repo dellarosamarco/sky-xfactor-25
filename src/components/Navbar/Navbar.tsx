@@ -15,8 +15,8 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <div className="music-btn" onClick={handleHomeClick}>
-        <img src={HomeIcon} alt="Home" className="home-icon" width={40}/>
+      <div className="music-btn" onClick={handleHomeClick} style={{width: '46px', height: '46px'}}>
+        <img src={HomeIcon} alt="Home" className="home-icon" width={32}/>
       </div>
 
       <button className="music-btn" onClick={toggleMute}>
