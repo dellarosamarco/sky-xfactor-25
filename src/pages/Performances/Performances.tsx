@@ -23,7 +23,7 @@ const Performances = () => {
     if (isWatching) {
       mute();
     }
-  }, [isWatching, mute]);
+  }, [isWatching]);
 
   useEffect(() => {
     loadPerformances();

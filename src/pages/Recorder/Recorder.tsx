@@ -22,7 +22,7 @@ const Recorder = () => {
 
   useEffect(() => {
     mute();
-  }, [mute]);
+  }, []);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;

@@ -53,7 +53,7 @@ const Homepage = () => {
         <div className="page__headline">
           <p className="text--lg">Fai il giudice di X Factor per un giorno</p>
           <p className="text--md">
-            Guarda due performance inedite e registra il tuo <span className="strong">video feedback</span>.<br />
+            Guarda due performance e registra il tuo <span className="strong">video feedback</span>.<br />
             Potresti vincere <span className="strong">2 posti VIP</span> per il Live del <span className="strong">XX Ottobre</span>!
           </p>
         </div>
@@ -91,7 +91,7 @@ const Homepage = () => {
       <div className="homepage__steps">
         <div className="homepage__step">
           <span className="homepage__step-index">1</span>
-          <p className="homepage__step-label">Guarda 2 performance inedite</p>
+          <p className="homepage__step-label">Guarda 2 performance</p>
         </div>
         <div className="homepage__step">
           <span className="homepage__step-index">2</span>

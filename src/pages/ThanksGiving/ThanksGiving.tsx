@@ -9,7 +9,7 @@ const ThanksGiving = () => {
   useEffect(() => {
     unmute();
     logout();
-  }, [unmute]);
+  }, []);
 
   return (
     <div className="page thanksgiving">
