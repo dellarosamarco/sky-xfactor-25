@@ -1,0 +1,48 @@
+.navbar {
+  padding: 10px;
+}
+
+.music-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #666;
+  background: transparent;
+  cursor: pointer;
+  font-size: 24px;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: border-color 0.3s, transform 0.2s;
+
+  &:hover {
+    border-color: #000;
+    transform: scale(1.05);
+  }
+
+  .icon {
+    position: absolute;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .muted {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  .unmuted {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+
+  // quando cambia stato, fai animazione
+  .muted.exit,
+  .unmuted.exit {
+    opacity: 0;
+    transform: scale(0.5) rotate(90deg);
+  }
+}

@@ -4,6 +4,7 @@ import './Homepage.scss';
 import { useState } from 'react';
 import { register } from '../../firebase/authService';
 import { useLoader } from '../../context/LoaderContext';
+import { useBackgroundMusic } from '../../hooks/useBackgroundMusic';
 
 const Homepage = () => {
     const { showLoader, hideLoader } = useLoader();

@@ -1,6 +1,14 @@
 import './ThanksGiving.scss';
+import { useBackgroundMusic } from './../../context/BackgroundMusicContext';
+import { useEffect } from 'react';
 
 const ThanksGiving = () => {
+    const { unmute } = useBackgroundMusic();
+
+    useEffect(() => {
+        unmute();
+    }, []);
+
     return <div className="page thanksgiving">
         <div className="thanksgiving-title">
             <p className="text--lg">Grazie per aver partecipato!</p>

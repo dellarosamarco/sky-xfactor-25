@@ -7,6 +7,8 @@ import AppRouter from './routes/AppRouter';
 import { AuthProvider } from './context/AuthContext';
 import { LoaderProvider } from './context/LoaderContext';
 import Loader from './components/Loader/Loader';
+import Navbar from './components/Navbar/Navbar';
+import { BackgroundMusicProvider } from './context/BackgroundMusicContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,10 +16,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <AuthProvider>
     <LoaderProvider>
-      <HashRouter>
-        <AppRouter />
-        <Loader></Loader>
-      </HashRouter>
+      <BackgroundMusicProvider>
+        <HashRouter>
+          <Navbar></Navbar>
+          <AppRouter />
+          <Loader></Loader>
+        </HashRouter>
+      </BackgroundMusicProvider>
     </LoaderProvider>
   </AuthProvider>
 );

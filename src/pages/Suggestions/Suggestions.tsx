@@ -1,10 +1,17 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Suggestions.scss';
+import { useBackgroundMusic } from './../../context/BackgroundMusicContext';
 
 const Suggestions = () => {
     const navigate = useNavigate();
     const [flipped, setFlipped] = useState([false, false, false]);
+
+    const { unmute } = useBackgroundMusic();
+
+    useEffect(() => {
+        unmute();
+    }, []);
 
     const onContinue = () => {
         navigate('/recorder');

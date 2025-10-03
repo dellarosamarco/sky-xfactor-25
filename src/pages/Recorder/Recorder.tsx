@@ -8,17 +8,22 @@ import { useLoader } from "../../context/LoaderContext";
 import PlayIcon from './../../assets/play.svg';
 import StopIcon from './../../assets/stop.svg';
 import RetryIcon from './../../assets/retry.svg';
+import { useBackgroundMusic } from './../../context/BackgroundMusicContext';
 
-const MAX_DURATION = 90; // 90 secondi
+const MAX_DURATION = 90;
 
 const Recorder = () => {
+    const { mute } = useBackgroundMusic();
     const { showLoader, hideLoader } = useLoader();
     const navigate = useNavigate();
     const [recordedVideo, setRecordedVideo] = useState<Blob | undefined>();
     const [recording, setRecording] = useState(false);
     const [countdown, setCountdown] = useState(MAX_DURATION);
 
-    // gestisce il countdown
+    useEffect(() => {
+        mute();
+    }, []);
+
     useEffect(() => {
         let interval: NodeJS.Timeout;
 
