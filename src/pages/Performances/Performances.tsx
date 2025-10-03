@@ -134,11 +134,21 @@ const Performances = () => {
             Immedesimati in un <span className='strong'>giudice di X Factor</span> e prendi nota delle tue impressioni.
           </p>
         </div>
-        <ul className='performances__list'>
-          <li>Ascolta con attenzione: valuta voce, presenza scenica e originalità.</li>
-          <li>Annota mentalmente cosa ti ha colpito e cosa miglioreresti.</li>
-          <li>Alla fine ti chiederemo di registrare il tuo video-feedback.</li>
-        </ul>
+
+        <div className='performances__tips'>
+          <div className='performances__tip'>
+            <span className='performances__tip-emoji'>🎤</span>
+            <p>Ascolta con attenzione: valuta voce, presenza scenica e originalità.</p>
+          </div>
+          <div className='performances__tip'>
+            <span className='performances__tip-emoji'>📝</span>
+            <p>Annota mentalmente cosa ti ha colpito e cosa miglioreresti.</p>
+          </div>
+          <div className='performances__tip'>
+            <span className='performances__tip-emoji'>🎥</span>
+            <p>Alla fine ti chiederemo di registrare il tuo video-feedback.</p>
+          </div>
+        </div>
       </div>
 
       <div className='performances__cta'>
