@@ -11,7 +11,7 @@ const Suggestions = () => {
 
     useEffect(() => {
         unmute();
-    }, []);
+    }, [unmute]);
 
     const onContinue = () => {
         navigate('/recorder');
@@ -33,48 +33,52 @@ const Suggestions = () => {
                 <div className="suggestions-cards-row">
                     
                     <div 
-                        className="suggestion-card suggestion-card-1"
-                        onMouseEnter={() => handleFlip(0)} 
-                        onClick={() => handleFlip(0)}
+                        className={`suggestion-card suggestion-card-1 ${flipped[0] ? "locked" : ""}`}
+                        onMouseEnter={() => handleFlip(0)}
                     >
                         <div className="card-inner">
                             <div className="card-front">
                                 <p className='card-preview'>1</p>
                             </div>
                             <div className="card-back">
-                                <p>Parti dal positivo: cosa hai visto che ha funzionato bene? <br />Fai esempi concreti, non limitarti a dire "Bravo, mi piace"</p>
+                                <p>
+                                    Parti dal positivo: cosa hai visto che ha funzionato bene? <br />
+                                    Fai esempi concreti, non limitarti a dire "Bravo, mi piace"
+                                </p>
                             </div>
                         </div>
                     </div>
 
                     <div 
-                        className="suggestion-card suggestion-card-2"
-                        onMouseEnter={() => handleFlip(1)} 
-                        onClick={() => handleFlip(1)}
+                        className={`suggestion-card suggestion-card-2 ${flipped[1] ? "locked" : ""}`}
+                        onMouseEnter={() => handleFlip(1)}
                     >
                         <div className="card-inner">
                             <div className="card-front">
                                 <p className='card-preview'>2</p>
                             </div>
                             <div className="card-back">
-                                <p>Affronta i punti di miglioramento: Cosa non ha funzionato o poteva andare meglio? <br />Fai esempi specifici</p>
+                                <p>
+                                    Affronta i punti di miglioramento: Cosa non ha funzionato o poteva andare meglio? <br />
+                                    Fai esempi specifici
+                                </p>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div 
-                    className="suggestion-card suggestion-card-3"
-                    onMouseEnter={() => handleFlip(2)} 
-                    onClick={() => handleFlip(2)}
+                    className={`suggestion-card suggestion-card-3 ${flipped[2] ? "locked" : ""}`}
+                    onMouseEnter={() => handleFlip(2)}
                 >
                     <div className="card-inner">
                         <div className="card-front">
                             <p className='card-preview'>3</p>
                         </div>
                         <div className="card-back">
-                            <p>Costruisci insieme il futuro: cosa potrebbe fare diversamente la prossima volta?</p>
+                            <p>
+                                Costruisci insieme il futuro: cosa potrebbe fare diversamente la prossima volta?
+                            </p>
                         </div>
                     </div>
                 </div>

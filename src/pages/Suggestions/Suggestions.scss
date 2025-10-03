@@ -24,7 +24,13 @@
     transform-style: preserve-3d;
   }
 
+  // normale hover
   &:hover .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  // se la card è "bloccata", resta girata sempre
+  &.locked .card-inner {
     transform: rotateY(180deg);
   }
 
@@ -89,5 +95,5 @@
 }
 
 .card-preview {
-    font-size: 70px;
+  font-size: 70px;
 }
