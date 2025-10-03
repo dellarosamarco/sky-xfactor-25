@@ -11,8 +11,18 @@ const Homepage = () => {
     const [email, setEmail] = useState<string | undefined>();
     const navigate = useNavigate();
 
+    const isValidEmail = (email: string) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
+
     const onRegister = async () => {
         if(!email) return;
+
+        if (!isValidEmail(email)) {
+            alert("Please enter a valid email address.");
+            return;
+        }
 
         showLoader();
         const { error } = await register(email, process.env.REACT_APP_TEMP_PASS);
