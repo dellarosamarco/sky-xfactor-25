@@ -115,7 +115,7 @@ const Performances = () => {
               onClick={onViewSuggestions}
               disabled={!secondPerformanceWatched}
             >
-              Consigli per un feedback top
+              Scopri i consigli dei coach
               <span className='button-hint'>Scelta consigliata</span>
             </button>
           </div>
