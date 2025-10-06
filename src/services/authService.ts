@@ -88,24 +88,33 @@ const buildAuthUser = async (): Promise<AuthUser> => {
 };
 
 export const register = async (email: string, password: string): Promise<RegisterResult> => {
+  const trimmedEmail = email.trim();
+  const nickName = trimmedEmail.split('@')[0];
+
+  const userAttributes: Record<string, string> = {
+    email: trimmedEmail,
+  };
+
+  if (nickName) {
+    userAttributes.nickname = nickName;
+  }
+
   try {
     await signUp({
-      username: email,
+      username: trimmedEmail,
       password,
       options: {
-        userAttributes: {
-          email,
-        },
+        userAttributes,
       },
     });
 
-    return await login({ email, password });
+    return await login({ email: trimmedEmail, password });
   } catch (error) {
     if (error && typeof error === 'object') {
       const { name } = error as { name?: string };
 
       if (name === 'UsernameExistsException' || name === 'UserNotConfirmedException') {
-        return await login({ email, password });
+        return await login({ email: trimmedEmail, password });
       }
     }
 
