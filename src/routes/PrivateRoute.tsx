@@ -8,7 +8,6 @@ type PrivateRouteProps = {
 
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const isAuth = auth.currentUser;
-  console.log(auth.currentUser?.email);
   return isAuth ? children : <Navigate to="/" replace />;
 };
 
