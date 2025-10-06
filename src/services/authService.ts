@@ -18,8 +18,6 @@ type SignInOptions = {
 type RegisterResult = {
   user: AuthUser | null;
   error: string | null;
-  needsConfirmation?: boolean;
-  nextStep?: string;
 };
 
 type AuthResult = {
@@ -45,7 +43,6 @@ export type AuthSubscriptionCallback = (
 
 const amplifyErrorMessages: Record<string, string> = {
   UsernameExistsException: 'Esiste già un account con questa e-mail.',
-  UserNotConfirmedException: 'Account non confermato. Controlla la tua casella e-mail.',
   NotAuthorizedException: 'Credenziali non valide. Riprova.',
   PasswordResetRequiredException: 'La password deve essere reimpostata prima di accedere.',
   TooManyFailedAttemptsException: 'Troppi tentativi falliti. Riprova tra qualche minuto.',
@@ -92,7 +89,7 @@ const buildAuthUser = async (): Promise<AuthUser> => {
 
 export const register = async (email: string, password: string): Promise<RegisterResult> => {
   try {
-    const result = await signUp({
+    await signUp({
       username: email,
       password,
       options: {
@@ -102,31 +99,14 @@ export const register = async (email: string, password: string): Promise<Registe
       },
     });
 
-    if (result.isSignUpComplete) {
-      const loginResult = await login({ email, password });
-      return {
-        user: loginResult.user,
-        error: loginResult.error,
-      };
-    }
-
-    return {
-      user: {
-        userId: result.userId ?? email,
-        username: email,
-        email,
-      },
-      error: null,
-      needsConfirmation: true,
-      nextStep: result.nextStep?.signUpStep,
-    };
+    return await login({ email, password });
   } catch (error) {
-    if (error && typeof error === 'object' && (error as { name?: string }).name === 'UsernameExistsException') {
-      const loginResult = await login({ email, password });
-      return {
-        user: loginResult.user,
-        error: loginResult.error,
-      };
+    if (error && typeof error === 'object') {
+      const { name } = error as { name?: string };
+
+      if (name === 'UsernameExistsException' || name === 'UserNotConfirmedException') {
+        return await login({ email, password });
+      }
     }
 
     return {
