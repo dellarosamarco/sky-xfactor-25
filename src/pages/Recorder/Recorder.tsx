@@ -77,7 +77,8 @@ const Recorder = () => {
         createdAt: new Date().toISOString(),
       });
 
-      await sendVideoEmail(uploadResult.url);
+      // TODO: abilitare invio email
+      // await sendVideoEmail(uploadResult.url);
       navigate('/thanksgiving');
     } catch (error) {
       console.error('Errore durante il salvataggio del video', error);
