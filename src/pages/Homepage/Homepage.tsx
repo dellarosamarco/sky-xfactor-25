@@ -4,9 +4,11 @@ import './Homepage.scss';
 import { useState } from 'react';
 import { register } from '../../services/authService';
 import { useLoader } from '../../context/LoaderContext';
+import { useAuth } from '../../context/AuthContext';
 
 const Homepage = () => {
   const { showLoader, hideLoader } = useLoader();
+  const { refreshUser } = useAuth();
   const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -29,15 +31,22 @@ const Homepage = () => {
 
     setError(null);
     showLoader();
-    const { error: registerError } = await register(email.trim(), process.env.REACT_APP_TEMP_PASS);
-    hideLoader();
+    try {
+      const { error: registerError } = await register(email.trim(), process.env.REACT_APP_TEMP_PASS);
 
-    if (registerError) {
-      setError(registerError);
-      return;
+      if (registerError) {
+        setError(registerError);
+        return;
+      }
+
+      await refreshUser();
+      navigate('/performances');
+    } catch (unexpectedError) {
+      console.error('Errore durante la registrazione', unexpectedError);
+      setError('Si e verificato un errore imprevisto. Riprova.');
+    } finally {
+      hideLoader();
     }
-
-    navigate('/performances');
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

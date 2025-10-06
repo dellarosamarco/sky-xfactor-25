@@ -15,15 +15,15 @@ type SignInOptions = {
   password: string;
 };
 
-type RegisterResult = {
+type BaseAuthResult = {
   user: AuthUser | null;
   error: string | null;
+  code?: string | null;
 };
 
-type AuthResult = {
-  user: AuthUser | null;
-  error: string | null;
-};
+type RegisterResult = BaseAuthResult;
+
+type AuthResult = BaseAuthResult;
 
 export type AuthUser = {
   userId: string;
@@ -42,12 +42,25 @@ export type AuthSubscriptionCallback = (
 ) => void | Promise<void>;
 
 const amplifyErrorMessages: Record<string, string> = {
-  UsernameExistsException: 'Esiste già un account con questa e-mail.',
+  UsernameExistsException: 'Esiste gia un account con questa email.',
+  AliasExistsException: 'Esiste gia un account con questa email.',
   NotAuthorizedException: 'Credenziali non valide. Riprova.',
   PasswordResetRequiredException: 'La password deve essere reimpostata prima di accedere.',
   TooManyFailedAttemptsException: 'Troppi tentativi falliti. Riprova tra qualche minuto.',
-  TooManyRequestsException: 'Troppo traffico sul servizio di login. Riprova più tardi.',
+  TooManyRequestsException: 'Troppo traffico sul servizio di login. Riprova piu tardi.',
   InvalidPasswordException: 'La password non rispetta i requisiti di sicurezza.',
+  UserNotFoundException: 'Nessun account associato a questa email.',
+  UserNotConfirmedException: 'Completa la conferma dell account prima di accedere.',
+};
+
+const extractAuthErrorCode = (error: unknown): string | null => {
+  if (!error || typeof error !== 'object') {
+    return null;
+  }
+
+  const err = error as { name?: string; __type?: string; code?: string };
+
+  return err.name || err.__type || err.code || null;
 };
 
 const mapAuthError = (error: unknown) => {
@@ -55,18 +68,19 @@ const mapAuthError = (error: unknown) => {
     return error;
   }
 
-  if (error && typeof error === 'object') {
-    const err = error as { name?: string; message?: string };
-    if (err.name && amplifyErrorMessages[err.name]) {
-      return amplifyErrorMessages[err.name];
-    }
+  const code = extractAuthErrorCode(error);
+  if (code && amplifyErrorMessages[code]) {
+    return amplifyErrorMessages[code];
+  }
 
+  if (error && typeof error === 'object') {
+    const err = error as { message?: string };
     if (err.message) {
       return err.message;
     }
   }
 
-  return 'Si è verificato un errore imprevisto.';
+  return 'Si e verificato un errore imprevisto.';
 };
 
 const buildAuthUser = async (): Promise<AuthUser> => {
@@ -89,8 +103,8 @@ const buildAuthUser = async (): Promise<AuthUser> => {
 
 export const register = async (email: string, password: string): Promise<RegisterResult> => {
   const trimmedEmail = email.trim();
-  const nickName = trimmedEmail.split('@')[0];
 
+  const nickName = trimmedEmail.split('@')[0];
   const userAttributes: Record<string, string> = {
     email: trimmedEmail,
   };
@@ -107,22 +121,35 @@ export const register = async (email: string, password: string): Promise<Registe
         userAttributes,
       },
     });
-
-    return await login({ email: trimmedEmail, password });
   } catch (error) {
-    if (error && typeof error === 'object') {
-      const { name } = error as { name?: string };
+    const errorCode = extractAuthErrorCode(error);
 
-      if (name === 'UsernameExistsException' || name === 'UserNotConfirmedException') {
-        return await login({ email: trimmedEmail, password });
+    if (
+      errorCode === 'UsernameExistsException'
+      || errorCode === 'AliasExistsException'
+      || errorCode === 'UserNotConfirmedException'
+    ) {
+      const loginResult = await login({ email: trimmedEmail, password });
+
+      if (loginResult.user) {
+        return loginResult;
       }
+
+      return {
+        user: null,
+        error: loginResult.error || mapAuthError(error),
+        code: loginResult.code ?? errorCode ?? null,
+      };
     }
 
     return {
       user: null,
       error: mapAuthError(error),
+      code: errorCode,
     };
   }
+
+  return await login({ email: trimmedEmail, password });
 };
 
 export const login = async ({ email, password }: SignInOptions): Promise<AuthResult> => {
@@ -130,9 +157,13 @@ export const login = async ({ email, password }: SignInOptions): Promise<AuthRes
     const result = await signIn({ username: email, password });
 
     if (!result.isSignedIn) {
+      const signInStep = result.nextStep?.signInStep ?? null;
       return {
         user: null,
-        error: `Completa il flusso di autenticazione richiesto (${result.nextStep.signInStep}).`,
+        error: signInStep
+          ? `Completa il flusso di autenticazione richiesto (${signInStep}).`
+          : 'Completa il flusso di autenticazione richiesto.',
+        code: signInStep,
       };
     }
 
@@ -141,11 +172,15 @@ export const login = async ({ email, password }: SignInOptions): Promise<AuthRes
     return {
       user,
       error: null,
+      code: null,
     };
   } catch (error) {
+    const errorCode = extractAuthErrorCode(error);
+
     return {
       user: null,
       error: mapAuthError(error),
+      code: errorCode,
     };
   }
 };
