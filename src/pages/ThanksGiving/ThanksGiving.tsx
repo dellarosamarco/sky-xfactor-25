@@ -13,16 +13,14 @@ const ThanksGiving = () => {
       try {
         await logout();
       } catch {
-        // Ignore logout errors to avoid blocking the user flow.
+
       }
     };
-
-    attemptLogout();
 
     const timeoutId = window.setTimeout(async () => {
       await attemptLogout();
       window.location.replace('/');
-    }, 20000);
+    }, 17000);
 
     return () => {
       window.clearTimeout(timeoutId);
