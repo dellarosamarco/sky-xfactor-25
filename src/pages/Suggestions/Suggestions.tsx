@@ -34,7 +34,7 @@ const Suggestions = () => {
                     
                     <div 
                         className={`suggestion-card suggestion-card-1 ${flipped[0] ? "locked" : ""}`}
-                        onMouseEnter={() => handleFlip(0)}
+                        onClick={() => handleFlip(0)}
                     >
                         <div className="card-inner">
                             <div className="card-front">
@@ -51,7 +51,7 @@ const Suggestions = () => {
 
                     <div 
                         className={`suggestion-card suggestion-card-2 ${flipped[1] ? "locked" : ""}`}
-                        onMouseEnter={() => handleFlip(1)}
+                        onClick={() => handleFlip(1)}
                     >
                         <div className="card-inner">
                             <div className="card-front">
@@ -69,7 +69,7 @@ const Suggestions = () => {
 
                 <div 
                     className={`suggestion-card suggestion-card-3 ${flipped[2] ? "locked" : ""}`}
-                    onMouseEnter={() => handleFlip(2)}
+                    onClick={() => handleFlip(2)}
                 >
                     <div className="card-inner">
                         <div className="card-front">
