@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 import VideoRecorder from "../../components/VideoRecorder/VideoRecorder";
 import "./Recorder.scss";
 import { useNavigate } from "react-router-dom";
-import { uploadVideo } from "../../firebase/videoService";
-import { sendVideoEmail } from "../../firebase/emailService";
+import { uploadVideo } from "../../services/storageService";
+import { sendVideoEmail } from "../../services/emailService";
 import { useLoader } from "../../context/LoaderContext";
 import PlayIcon from './../../assets/play.svg';
 import StopIcon from './../../assets/stop.svg';
 import RetryIcon from './../../assets/retry.svg';
 import { useBackgroundMusic } from './../../context/BackgroundMusicContext';
+import { createVideoMetadata } from "../../services/dbService";
+import { getAuthenticatedUser } from "../../services/authService";
+import awsConfig from "../../aws-exports";
 
 const MAX_DURATION = 45;
 
@@ -53,16 +56,34 @@ const Recorder = () => {
     if (!recordedVideo) return;
 
     showLoader();
-    const url = await uploadVideo(recordedVideo);
 
-    if (!url) {
+    try {
+      const user = await getAuthenticatedUser();
+
+      if (!user) {
+        throw new Error('Utente non autenticato');
+      }
+
+      const uploadResult = await uploadVideo(recordedVideo);
+      const bucket = process.env.REACT_APP_AWS_S3_BUCKET || awsConfig.aws_user_files_s3_bucket;
+      const videoId = typeof crypto !== 'undefined' && 'randomUUID' in crypto
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+
+      await createVideoMetadata({
+        videoId,
+        ownerId: user.userId,
+        s3Url: `s3://${bucket}/${uploadResult.key}`,
+        createdAt: new Date().toISOString(),
+      });
+
+      await sendVideoEmail(uploadResult.url);
+      navigate('/thanksgiving');
+    } catch (error) {
+      console.error('Errore durante il salvataggio del video', error);
+    } finally {
       hideLoader();
-      return;
     }
-
-    await sendVideoEmail(url);
-    hideLoader();
-    navigate('/thanksgiving');
   };
 
   return (

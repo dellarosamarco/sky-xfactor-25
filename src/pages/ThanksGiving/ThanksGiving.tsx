@@ -1,26 +1,27 @@
 import './ThanksGiving.scss';
 import { useBackgroundMusic } from './../../context/BackgroundMusicContext';
 import { useEffect } from 'react';
-import { logout } from '../../firebase/authService';
+import { logout } from '../../services/authService';
 
 const ThanksGiving = () => {
   const { unmute } = useBackgroundMusic();
 
   useEffect(() => {
     unmute();
-    try {
-      logout();
-    }
-    catch {
 
-    }
-
-    const timeoutId = window.setTimeout(async () => {
+    const attemptLogout = async () => {
       try {
         await logout();
-      } finally {
-        window.location.replace('/');
+      } catch {
+        // Ignore logout errors to avoid blocking the user flow.
       }
+    };
+
+    attemptLogout();
+
+    const timeoutId = window.setTimeout(async () => {
+      await attemptLogout();
+      window.location.replace('/');
     }, 20000);
 
     return () => {

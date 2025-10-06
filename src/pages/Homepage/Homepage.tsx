@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Logo from './../../assets/logo.png';
 import './Homepage.scss';
 import { useState } from 'react';
-import { register } from '../../firebase/authService';
+import { register } from '../../services/authService';
 import { useLoader } from '../../context/LoaderContext';
 
 const Homepage = () => {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './Performances.scss';
 import { useNavigate } from 'react-router-dom';
-import { getPerformances } from '../../firebase/perfromancesService';
+import { getPerformances } from '../../services/performanceService';
 import { useLoader } from '../../context/LoaderContext';
 import { useBackgroundMusic } from './../../context/BackgroundMusicContext';
 
@@ -31,10 +31,15 @@ const Performances = () => {
 
   const loadPerformances = async () => {
     showLoader();
-    const performances = await getPerformances();
-    setFirstPerformance(performances.firstPerformance);
-    setSecondPerformance(performances.secondPerformance);
-    hideLoader();
+    try {
+      const performances = await getPerformances();
+      setFirstPerformance(performances.firstPerformance);
+      setSecondPerformance(performances.secondPerformance);
+    } catch (error) {
+      console.error('Errore nel recupero delle performance', error);
+    } finally {
+      hideLoader();
+    }
   };
 
   const onViewSuggestions = () => {

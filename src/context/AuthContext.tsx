@@ -1,24 +1,64 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "../firebase/firebaseConfig";
+import {
+  AuthUser,
+  getAuthenticatedUser,
+  subscribeToAuthChanges,
+} from "../services/authService";
 
 type AuthContextType = {
-  user: User | null;
+  user: AuthUser | null;
+  refreshUser: () => Promise<void>;
 };
 
-const AuthContext = createContext<AuthContextType>({ user: null });
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  refreshUser: async () => {
+    /* no-op default */
+  },
+});
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
+
+  const refreshUser = async () => {
+    const currentUser = await getAuthenticatedUser();
+    setUser(currentUser);
+  };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    let isMounted = true;
+
+    refreshUser();
+
+    const unsubscribe = subscribeToAuthChanges(async (capsule) => {
+      const { payload } = capsule;
+
+      if (!isMounted) {
+        return;
+      }
+
+      const event = payload.event;
+
+      if (event === "signedIn" || event === "tokenRefresh" || event === "autoSignIn") {
+        await refreshUser();
+      }
+
+      if (event === "signedOut" || event === "oAuthSignOut") {
+        setUser(null);
+      }
     });
-    return () => unsubscribe();
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
   }, []);
 
-  return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, refreshUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => useContext(AuthContext);

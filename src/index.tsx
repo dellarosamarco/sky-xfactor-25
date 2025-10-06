@@ -9,6 +9,7 @@ import { LoaderProvider } from './context/LoaderContext';
 import Loader from './components/Loader/Loader';
 import Navbar from './components/Navbar/Navbar';
 import { BackgroundMusicProvider } from './context/BackgroundMusicContext';
+import './lib/amplify';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

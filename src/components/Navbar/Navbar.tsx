@@ -2,14 +2,14 @@ import { useBackgroundMusic } from "./../../context/BackgroundMusicContext";
 import "./Navbar.scss";
 import HomeIcon from "../../assets/home.svg";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../firebase/authService";
+import { logout } from "../../services/authService";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { toggleMute, isMuted } = useBackgroundMusic();
 
-  const handleHomeClick = () => {
-    logout();
+  const handleHomeClick = async () => {
+    await logout();
     navigate("/");
   };
 
