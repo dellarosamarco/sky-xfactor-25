@@ -60,7 +60,7 @@ const Homepage = () => {
       </div>
 
       <div className="homepage__card">
-        <img src={Logo} alt="Logo X Factor" className="homepage__logo" width={320} height={160} />
+        <img src={Logo} alt="Logo X Factor" className="homepage__logo" width={340} height={230} />
 
         <div className="homepage__form">
           <label htmlFor="email" className="homepage__label">
