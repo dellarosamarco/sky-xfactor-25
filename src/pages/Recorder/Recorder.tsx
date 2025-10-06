@@ -67,6 +67,13 @@ const Recorder = () => {
 
   return (
     <div className="page recorder">
+      {recording && (
+        <div className="recorder__timer" role="timer" aria-live="assertive">
+          <span className="recorder__timer-dot" aria-hidden="true" />
+          {countdown}s
+        </div>
+      )}
+
       <div className="recorder__hero">
         <span className="recorder__badge">Fase 3 · Condivisione</span>
         <div className="page__headline">
@@ -79,13 +86,6 @@ const Recorder = () => {
 
       <div className="recorder__layout">
         <div className="recorder__preview" aria-live="polite">
-          {recording && (
-            <div className="recorder__timer">
-              <span className="recorder__timer-dot" aria-hidden="true" />
-              {countdown}s
-            </div>
-          )}
-
           <VideoRecorder
             width={880}
             height={495}

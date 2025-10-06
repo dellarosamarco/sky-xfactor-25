@@ -40,9 +40,10 @@
   }
 
   &__timer {
-    position: absolute;
+    position: fixed;
     top: clamp(18px, 4vw, 26px);
     right: clamp(18px, 4vw, 26px);
+    z-index: 20;
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -54,6 +55,7 @@
     font-weight: 600;
     letter-spacing: 0.06em;
     color: #ff7a8c;
+    pointer-events: none;
   }
 
   &__timer-dot {
