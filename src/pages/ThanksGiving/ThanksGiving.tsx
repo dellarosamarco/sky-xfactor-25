@@ -8,7 +8,24 @@ const ThanksGiving = () => {
 
   useEffect(() => {
     unmute();
-    logout();
+    try {
+      logout();
+    }
+    catch {
+
+    }
+
+    const timeoutId = window.setTimeout(async () => {
+      try {
+        await logout();
+      } finally {
+        window.location.replace('/');
+      }
+    }, 20000);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
