@@ -18,7 +18,7 @@ export const BackgroundMusicProvider: React.FC<{ children: React.ReactNode }> = 
   useEffect(() => {
     const audio = new Audio(music);
     audio.loop = true;
-    audio.volume = 0.5;
+    audio.volume = 0.2;
     audio.muted = true;
     audio.play().catch(() => {
       console.log("Autoplay bloccato fino a interazione utente");
