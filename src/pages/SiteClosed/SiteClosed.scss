@@ -1,5 +1,6 @@
 .site-closed {
   gap: clamp(20px, 4vw, 32px);
+  margin-top: 60px;
 
   &__logo {
     filter: drop-shadow(0 12px 30px rgba(2, 4, 24, 0.5));
