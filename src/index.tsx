@@ -9,6 +9,7 @@ import { LoaderProvider } from './context/LoaderContext';
 import Loader from './components/Loader/Loader';
 import Navbar from './components/Navbar/Navbar';
 import { BackgroundMusicProvider } from './context/BackgroundMusicContext';
+import { SiteConfigProvider } from './context/SiteConfigContext';
 import './lib/amplify';
 
 const root = ReactDOM.createRoot(
@@ -18,11 +19,13 @@ root.render(
   <AuthProvider>
     <LoaderProvider>
       <BackgroundMusicProvider>
-        <HashRouter>
-          <Navbar></Navbar>
-          <AppRouter />
-          <Loader></Loader>
-        </HashRouter>
+        <SiteConfigProvider>
+          <HashRouter>
+            <Navbar></Navbar>
+            <AppRouter />
+            <Loader></Loader>
+          </HashRouter>
+        </SiteConfigProvider>
       </BackgroundMusicProvider>
     </LoaderProvider>
   </AuthProvider>

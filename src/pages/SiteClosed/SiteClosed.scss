@@ -1,0 +1,50 @@
+.site-closed {
+  gap: clamp(20px, 4vw, 32px);
+
+  &__logo {
+    filter: drop-shadow(0 12px 30px rgba(2, 4, 24, 0.5));
+  }
+
+  &__actions {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+  }
+
+  &__spinner {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 6px solid rgba(255, 255, 255, 0.18);
+    border-top-color: #ffffff;
+    animation: site-closed-spinner 0.9s linear infinite;
+    margin-top: 12px;
+  }
+
+  &__error {
+    color: rgba(255, 150, 150, 0.88);
+    font-weight: 500;
+  }
+}
+
+.site-closed--loading {
+  gap: clamp(28px, 6vw, 40px);
+}
+
+@keyframes site-closed-spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .site-closed {
+    &__logo {
+      width: 220px;
+      height: auto;
+    }
+  }
+}
