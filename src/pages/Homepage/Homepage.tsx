@@ -53,20 +53,21 @@ const Homepage = () => {
         return;
       }
 
-      const currentWeek = typeof config?.currentWeek === 'number' ? config.currentWeek : undefined;
+      // TODO: abilitare controllo video settimanali
+      // const currentWeek = typeof config?.currentWeek === 'number' ? config.currentWeek : undefined;
 
-      if (currentWeek !== undefined) {
-        const videos = await listUserVideos(user.userId);
-        const totalVideos = videos.length;
+      // if (currentWeek !== undefined) {
+      //   const videos = await listUserVideos(user.userId);
+      //   const totalVideos = videos.length;
 
-        if (totalVideos > currentWeek) {
-          await logout();
-          await refreshUser();
-          setBlockedInfo({ totalVideos, currentWeek });
-          setIsBlockedModalOpen(true);
-          return;
-        }
-      }
+      //   if (totalVideos > currentWeek) {
+      //     await logout();
+      //     await refreshUser();
+      //     setBlockedInfo({ totalVideos, currentWeek });
+      //     setIsBlockedModalOpen(true);
+      //     return;
+      //   }
+      // }
 
       await refreshUser();
       navigate('/performances');

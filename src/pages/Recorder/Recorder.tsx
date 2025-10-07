@@ -64,18 +64,19 @@ const Recorder = () => {
         throw new Error('Utente non autenticato');
       }
 
-      const uploadResult = await uploadVideo(recordedVideo);
-      const bucket = process.env.REACT_APP_AWS_S3_BUCKET || awsConfig.aws_user_files_s3_bucket;
-      const videoId = typeof crypto !== 'undefined' && 'randomUUID' in crypto
-        ? crypto.randomUUID()
-        : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+      // TODO: abilitare salvataggio video
+      // const uploadResult = await uploadVideo(recordedVideo);
+      // const bucket = process.env.REACT_APP_AWS_S3_BUCKET || awsConfig.aws_user_files_s3_bucket;
+      // const videoId = typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      //   ? crypto.randomUUID()
+      //   : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
 
-      await createVideoMetadata({
-        videoId,
-        ownerId: user.userId,
-        s3Url: `s3://${bucket}/${uploadResult.key}`,
-        createdAt: new Date().toISOString(),
-      });
+      // await createVideoMetadata({
+      //   videoId,
+      //   ownerId: user.userId,
+      //   s3Url: `s3://${bucket}/${uploadResult.key}`,
+      //   createdAt: new Date().toISOString(),
+      // });
 
       // TODO: abilitare invio email
       // await sendVideoEmail(uploadResult.url);
