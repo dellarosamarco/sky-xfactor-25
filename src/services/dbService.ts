@@ -79,7 +79,8 @@ export const getVideoMetadata = async (videoId: string): Promise<VideoMetadata |
 };
 
 export const listUserVideos = async (userId: string): Promise<VideoMetadata[]> => {
-  return apiGet<VideoMetadata[]>(`/users/${userId}/videos`);
+  const res = await apiGet<{ videos: VideoMetadata[] }>(`/videos?ownerId=${userId}`);
+  return res.videos;
 };
 
 export const deleteVideoMetadata = async (videoId: string): Promise<void> => {
