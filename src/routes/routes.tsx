@@ -1,8 +1,7 @@
 import { lazy } from "react";
-import { RouteObject } from "react-router-dom";
-import MainLayout from "../layouts/MainLayout";
 import Suggestions from "../pages/Suggestions/Suggestions";
 import PrivateRoute from "./PrivateRoute";
+import { Outlet, RouteObject } from "react-router-dom";
 
 const Homepage = lazy(() => import("../pages/Homepage/Homepage"));
 const Performances = lazy(() => import("../pages/Performances/Performances"));
@@ -11,7 +10,7 @@ const ThanksGiving = lazy(() => import("../pages/ThanksGiving/ThanksGiving"));
 
 export const routes: RouteObject[] = [
   {
-    element: <MainLayout />,
+    element: <Outlet></Outlet>,
     children: [
       { path: "/", element: <Homepage /> },
       { path: "/performances", element: <PrivateRoute><Performances></Performances></PrivateRoute>},
